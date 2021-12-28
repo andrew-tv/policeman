@@ -1,0 +1,49 @@
+{
+  "name": "Root",
+  "type": "NODE",
+  "items": [
+    {
+      "name": "Folder name",
+      "type": "NODE",
+      "items": [
+        {
+          "name": "REST request",
+          "type": "REST",
+          "task": {
+            "request": {
+              "method": "POST",
+              "url": {
+                "protocol": "http",
+                "host": "localhost",
+                "port": "8082",
+                "path": "/jsonrpc/v1"
+              },
+              "headers": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Accept",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "jsonrpc": "2.0",
+                "method": "get_custom_field_list",
+                "id": "912",
+                "params": {
+                  "query": {
+                    "filter": {
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+
+  ]
+}
