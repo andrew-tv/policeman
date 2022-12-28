@@ -1,24 +1,31 @@
 package agency.july.validjsondemo.models;
 
-import agency.july.validjsondemo.deserializers.RequestDeserializer;
+import agency.july.validjsondemo.enums.HttpMethod;
+import agency.july.validjsondemo.enums.ServiceSingleton;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
-import java.net.URL;
+import lombok.ToString;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@JsonDeserialize(using = RequestDeserializer.class)
-public class Request implements Serializable {
+@ToString
+public class Request {
 
-    private String method;
-    private URL url;
-    private Header[] headers;
+    private HttpMethod method;
+    private ServiceSingleton service;
+    private HttpHeaders headers;
     private JsonNode body;
+    private String query;
+
+    @JsonIgnore
+    public ResponseEntity send() {
+
+        return method.send(this);
+
+    }
 
 }

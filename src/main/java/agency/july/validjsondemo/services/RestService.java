@@ -1,18 +1,12 @@
 package agency.july.validjsondemo.services;
 
 import agency.july.validjsondemo.models.Request;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.Duration;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class RestService {
@@ -27,33 +21,18 @@ public class RestService {
                 .build();
     }
 
-    public JsonNode sendRequest(Request request) throws MalformedURLException {
+    public String sendRequest(Request request) {
 
-        URL url = new URL("http", "localhost", 8082, "/jsonrpc/v1");
+        System.out.println("Request: "+ request);
 
-        // create headers
-        HttpHeaders headers = new HttpHeaders();
-        // set `content-type` header
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        // set `accept` header
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-
-        // create a map for post parameters
-        Map<String, Object> map = new HashMap<>();
-        map.put("userId", 1);
-        map.put("title", "Introduction to Spring Boot");
-        map.put("body", "Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications.");
-
-        // build the request
-        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
-
-        // send POST request
-        ResponseEntity<JsonNode> response = this.restTemplate.postForEntity(url.toString(), entity, JsonNode.class);
+        ResponseEntity<String> response = request.getMethod().send(request);
 
         // check response status code
-        if (response.getStatusCode() == HttpStatus.CREATED) {
+        if (response.getStatusCode() == HttpStatus.OK) {
+            System.out.println("OK");
             return response.getBody();
         } else {
+            System.out.println("WTF");
             return null;
         }
     }

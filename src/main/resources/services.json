@@ -1,0 +1,38 @@
+{
+  "target_json_rpc": {
+    "protocol": "http",
+    "host": "target-service",
+    "port": 8082,
+    "path": "/jsonrpc/v1"
+  },
+  "target_health_check": {
+    "protocol": "http",
+    "host": "target-service",
+    "port": 5001,
+    "path": "/hc"
+  },
+  "target_no_auth": {
+    "protocol": "http",
+    "host": "target-service",
+    "port": 8082,
+    "path": "/noauth/user"
+  },
+  "mountebank": {
+    "protocol": "http",
+    "host": "mountebank",
+    "port": 2525,
+    "path": "/imposters"
+  },
+  "schema-registry": {
+    "protocol": "http",
+    "host": "schema-registry",
+    "port": 8081,
+    "path": ""
+  },
+  "broker": {
+    "protocol": "",
+    "host": "broker",
+    "port": 9092,
+    "path": ""
+  }
+}
